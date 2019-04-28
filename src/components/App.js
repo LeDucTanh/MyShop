@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Text, View, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Authentication from './Authentication/Authentication';
 import ChangeInfo from './ChangeInfo/ChangeInfo';
