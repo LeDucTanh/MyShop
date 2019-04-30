@@ -7,7 +7,7 @@ class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLogedIn: true
+            isLogedIn: false
         };
     }
 
@@ -31,7 +31,7 @@ class Menu extends Component {
         } = styles;
         const logoutJSX = (
             <View>
-                <TouchableOpacity style={buttonStyle}>
+                <TouchableOpacity style={buttonStyle} onPress={this.gotoAuthentication.bind(this)}>
                     <Text style={buttonText}>Sign in</Text>
                 </TouchableOpacity>
             </View>
@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#34B089',
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'Avenir'
     },
     btnSigninStyle: {
         height: 50,
@@ -100,13 +101,18 @@ const styles = StyleSheet.create({
     },
     btnTextSignin: {
         color: '#34B089',
-        fontSize: 15
+        fontSize: 15,
+        fontFamily: 'Avenir'
     },
     loginContainer: {
-        flex: 1, justifyContent: 'space-between', alignItems: 'center'
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     username: {
-        color: '#fff', fontFamily: 'Avenir', fontSize: 20
+        color: '#fff',
+        fontFamily: 'Avenir',
+        fontSize: 20
     }
 });
 
