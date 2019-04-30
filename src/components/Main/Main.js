@@ -6,19 +6,6 @@ import Menu from './Menu';
 import Shop from './Shop/Shop';
 
 export default class Main extends Component {
-
-    gotoAuthentication() {
-        this.props.navigation.navigate('Authentication');
-    }
-
-    gotoChangeInfo() {
-        this.props.navigation.navigate('ChangeInfo');
-    }
-
-    gotoOrderHistory() {
-        this.props.navigation.navigate('OrderHistory');
-    }
-
     closeControlPanel = () => {
         this.drawer.close();
     }
