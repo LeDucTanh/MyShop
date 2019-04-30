@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import bannerImage from '../../../../media/temp/banner.jpg';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export default class Collection extends Component {
     render() {
         const { wrapper, textStyle, imageStyle } = styles;
         return (
             <View style={wrapper}>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
+                <View style={{ height: 50, justifyContent: 'center' }}>
                     <Text style={textStyle}>SPRING COLLECTION</Text>
                 </View>
                 <View style={{ flex: 4 }}>
@@ -21,11 +21,11 @@ export default class Collection extends Component {
 }
 
 const imageWidth = width - 40;
-const imageHeight = (imageWidth * 465) / 933;
+const imageHeight = imageWidth / 2;
 
 const styles = StyleSheet.create({
     wrapper: {
-        height: height * 0.28,
+        width: width - 20,
         backgroundColor: '#FFF',
         margin: 10,
         shadowColor: '#2E272B',

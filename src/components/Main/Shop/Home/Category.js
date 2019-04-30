@@ -5,14 +5,14 @@ import littleIcon from '../../../../media/temp/little.jpg';
 import maxiIcon from '../../../../media/temp/maxi.jpg';
 import partyIcon from '../../../../media/temp/party.jpg';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export default class Category extends Component {
     render() {
         const { wrapper, textStyle, imageStyle, itemName } = styles;
         return (
             <View style={wrapper}>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
+                <View style={{ height: 50, justifyContent: 'center' }}>
                     <Text style={textStyle}>LIST OF CATEGORY</Text>
                 </View>
                 <View style={{ flex: 4 }}>
@@ -41,7 +41,7 @@ const imageHeight = (imageWidth * 465) / 933;
 
 const styles = StyleSheet.create({
     wrapper: {
-        height: height * 0.28,
+        width: width - 20,
         backgroundColor: '#FFF',
         margin: 10,
         shadowColor: '#2E272B',
