@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
+import SearchView from './SearchView';
+import ProductDetail from '../ProductDetail/ProductDetail';
 
-class Search extends Component {
+const AppNavigator = createStackNavigator(
+    {
+        SearchView,
+        ProductDetail
+    },
+    {
+        defaultNavigationOptions: {
+            header: null
+        }
+    }
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class Search extends Component {
     render() {
-        return (
-            <View style={{ flex: 1, backgroundColor: '#1F85FF' }}>
-                <Text>Search Component</Text>
-            </View>
-        );
+        return <AppContainer />;
     }
 }
-
-export default Search;
