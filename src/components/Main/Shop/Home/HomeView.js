@@ -5,15 +5,12 @@ import Category from './Category';
 import TopProduct from './TopProduct';
 
 class HomeView extends Component {
-    gotoProductDetail() {
-        this.props.navigation.navigate('ProductDetail');
-    }
     render() {
         return (
             <ScrollView style={{ flex: 1, backgroundColor: '#DBDBD8' }}>
                 <Collection />
                 <Category navigation={this.props.navigation} />
-                <TopProduct />
+                <TopProduct navigation={this.props.navigation} />
             </ScrollView>
         );
     }
