@@ -57,7 +57,7 @@ class Menu extends Component {
         return (
             <View style={container}>
                 <Image source={profileICon} style={profile} />
-                { mainJSX }
+                {mainJSX}
             </View>
         );
     }

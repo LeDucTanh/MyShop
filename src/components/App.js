@@ -18,42 +18,17 @@ StatusBar.setHidden(true);
 
 const AppNavigator = createStackNavigator(
   {
-    Main: {
-      screen: Main,
-      navigationOptions: () => ({
-        title: 'Main',
-      })
-    },
-    Authentication: {
-      screen: Authentication,
-      navigationOptions: () => ({
-        title: 'Authentication',
-      })
-    },
-    ChangeInfo: {
-      screen: ChangeInfo,
-      navigationOptions: () => ({
-        title: 'ChangeInfo',
-      })
-    },
-    OrderHistory: {
-      screen: OrderHistory,
-      navigationOptions: () => ({
-        title: 'OrderHistory',
-      })
-    }
+    Main,
+    Authentication,
+    ChangeInfo,
+    OrderHistory
   },
   {
     defaultNavigationOptions: {
       header: null
     }
-  },
-  {
-    initialRouteName: 'Main'
   }
 );
-
-createAppContainer(AppNavigator);
 
 const AppContainer = createAppContainer(AppNavigator);
 

@@ -1,34 +1,38 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 import littleIcon from '../../../../media/temp/little.jpg';
 import maxiIcon from '../../../../media/temp/maxi.jpg';
 import partyIcon from '../../../../media/temp/party.jpg';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export default class Category extends Component {
+    gotoListProduct() {
+        const { navigation } = this.props;
+        navigation.navigate('ListProduct');
+    }
     render() {
         const { wrapper, textStyle, imageStyle, itemName } = styles;
         return (
             <View style={wrapper}>
-                <View style={{ height: 50, justifyContent: 'center' }}>
+                <View style={{ flex: 1, justifyContent: 'center' }}>
                     <Text style={textStyle}>LIST OF CATEGORY</Text>
                 </View>
                 <View style={{ flex: 4 }}>
                     <Swiper >
-                        <View>
+                        <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
                             <Image source={littleIcon} style={imageStyle} />
                             <Text style={itemName}>Little Dress</Text>
-                        </View>
-                        <View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
                             <Image source={maxiIcon} style={imageStyle} />
                             <Text style={itemName}>Maxi Dress</Text>
-                        </View>
-                        <View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
                             <Image source={partyIcon} style={imageStyle} />
                             <Text style={itemName}>Party Dress</Text>
-                        </View>
+                        </TouchableOpacity>
                     </Swiper>
                 </View>
             </View>
@@ -42,6 +46,7 @@ const imageHeight = (imageWidth * 465) / 933;
 const styles = StyleSheet.create({
     wrapper: {
         width: width - 20,
+        height: height * 0.28,
         backgroundColor: '#FFF',
         margin: 10,
         shadowColor: '#2E272B',
