@@ -7,7 +7,7 @@ class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLogedIn: false
+            isLogedIn: true
         };
     }
 
