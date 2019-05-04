@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { 
+    View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, ListView 
+} from 'react-native';
 
-import sp1 from '../../../../media/temp/sp1.jpeg';
-import sp2 from '../../../../media/temp/sp2.jpeg';
-import sp3 from '../../../../media/temp/sp3.jpeg';
-import sp4 from '../../../../media/temp/sp4.jpeg';
+const url = 'http://localhost/api/images/product/';
 
 export default class TopProduct extends Component {
+    constructor(props) {
+        super(props);
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        const { products } = this.props;
+        this.state = {
+            dataSource: ds.cloneWithRows(products)
+        };
+    }
     gotoDetail() {
         const { navigation } = this.props;
         navigation.navigate('ProductDetail');
@@ -21,29 +28,17 @@ export default class TopProduct extends Component {
                 <View style={titleContainer}>
                     <Text style={title}>TOP PRODUCT</Text>
                 </View>
-                <View style={body}>
-                    <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
-                        <Image source={sp1} style={productImage} />
-                        <Text style={productName}>PRODUCT NAME</Text>
-                        <Text style={productPrice}>230$</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
-                        <Image source={sp2} style={productImage} />
-                        <Text style={productName}>PRODUCT NAME</Text>
-                        <Text style={productPrice}>520$</Text>
-                    </TouchableOpacity>
-                    <View style={{ height: 10, width }} />
-                    <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
-                        <Image source={sp3} style={productImage} />
-                        <Text style={productName}>PRODUCT NAME</Text>
-                        <Text style={productPrice}>230$</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
-                        <Image source={sp4} style={productImage} />
-                        <Text style={productName}>PRODUCT NAME</Text>
-                        <Text style={productPrice}>520$</Text>
-                    </TouchableOpacity>
-                </View>
+                <ListView 
+                    contentContainerStyle={body} 
+                    dataSource={this.state.dataSource}
+                    renderRow={product => (
+                        <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
+                            <Image source={{ uri: `${url}${product.images[0]}` }} style={productImage} />
+                            <Text style={productName}>{product.name}</Text>
+                            <Text style={productPrice}>{`${product.price}$`}</Text>
+                        </TouchableOpacity>
+                    )}
+                />
             </View>
         );
     }

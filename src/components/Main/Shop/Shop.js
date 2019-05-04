@@ -24,7 +24,8 @@ class Shop extends Component {
         this.state = { 
             selectedTab: 'home',
             isLoaded: false,
-            types: []
+            types: [],
+            products: []
         };
     }
 
@@ -33,10 +34,11 @@ class Shop extends Component {
         fetch('http://localhost/api/')
             .then(res => res.json())
             .then(resJSON => {
-                const { type } = resJSON;
+                const { type, product } = resJSON;
                 this.setState({
                     isLoaded: true,
-                    types: type
+                    types: type,
+                    products: product
                 });
             });
     }
@@ -48,7 +50,7 @@ class Shop extends Component {
 
     render() {
         const { iconStyle } = styles;
-        const { isLoaded, types, selectedTab } = this.state;
+        const { isLoaded, types, products, selectedTab } = this.state;
         if (!isLoaded) {
             return (
                 <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -69,7 +71,7 @@ class Shop extends Component {
                             selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                             titleStyle={{ fontFamily: 'Avenir' }}
                         >
-                            <Home types={types} />
+                            <Home types={types} products={products} />
                         </TabNavigator.Item>
                         <TabNavigator.Item
                             selected={selectedTab === 'cart'}
