@@ -14,9 +14,11 @@ export default class TopProduct extends Component {
             dataSource: ds.cloneWithRows(products)
         };
     }
-    gotoDetail() {
+    gotoDetail(product) {
         const { navigation } = this.props;
-        navigation.navigate('ProductDetail');
+        navigation.navigate('ProductDetail', {
+            product
+        });
     }
     render() {
         const { container, titleContainer, 
@@ -32,10 +34,10 @@ export default class TopProduct extends Component {
                     contentContainerStyle={body} 
                     dataSource={this.state.dataSource}
                     renderRow={product => (
-                        <TouchableOpacity style={productContainer} onPress={this.gotoDetail.bind(this)}>
+                        <TouchableOpacity style={productContainer} onPress={() => this.gotoDetail(product)}>
                             <Image source={{ uri: `${url}${product.images[0]}` }} style={productImage} />
-                            <Text style={productName}>{product.name}</Text>
-                            <Text style={productPrice}>{`${product.price}$`}</Text>
+                            <Text style={productName}>{product.name.toUpperCase()}</Text>
+                            <Text style={productPrice}>{product.price}$</Text>
                         </TouchableOpacity>
                     )}
                 />
