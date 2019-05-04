@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TabNavigator from 'react-native-tab-navigator';
 import { SafeAreaView } from 'react-navigation';
-import { Image, StyleSheet } from 'react-native';
+import { Text, Image, StyleSheet } from 'react-native';
 
 import Home from './Home/Home';
 import Contact from './Contact/Contact';
@@ -21,7 +21,24 @@ import contactIcon from '../../../media/appIcon/contact0.png';
 class Shop extends Component {
     constructor(props) {
         super(props);
-        this.state = { selectedTab: 'home' };
+        this.state = { 
+            selectedTab: 'home',
+            isLoaded: false,
+            types: []
+        };
+    }
+
+    componentDidMount() {
+        // eslint-disable-next-line no-undef
+        fetch('http://localhost/api/')
+            .then(res => res.json())
+            .then(resJSON => {
+                const { type } = resJSON;
+                this.setState({
+                    isLoaded: true,
+                    types: type
+                });
+            });
     }
 
     openMenu() {
@@ -31,58 +48,67 @@ class Shop extends Component {
 
     render() {
         const { iconStyle } = styles;
-        return (
-            <SafeAreaView style={{ flex: 1 }}>
-                <Header onOpen={this.openMenu.bind(this)} />
-                <TabNavigator>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'home'}
-                        title='Home'
-                        onPress={() => this.setState({ selectedTab: 'home' })}
-                        renderIcon={() => <Image source={homeIcon} style={iconStyle} />}
-                        renderSelectedIcon={() => <Image source={homeIconS} style={iconStyle} />}
-                        selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
-                        titleStyle={{ fontFamily: 'Avenir' }}
-                    >
-                        <Home />
-                    </TabNavigator.Item>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'cart'}
-                        title='Cart'
-                        onPress={() => this.setState({ selectedTab: 'cart' })}
-                        renderIcon={() => <Image source={cartIcon} style={iconStyle} />}
-                        renderSelectedIcon={() => <Image source={cartIconS} style={iconStyle} />}
-                        badgeText='1'
-                        selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
-                        titleStyle={{ fontFamily: 'Avenir' }}
-                    >
-                        <Cart />
-                    </TabNavigator.Item>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'search'}
-                        title='Search'
-                        onPress={() => this.setState({ selectedTab: 'search' })}
-                        renderIcon={() => <Image source={searchIcon} style={iconStyle} />}
-                        renderSelectedIcon={() => <Image source={searchIconS} style={iconStyle} />}
-                        selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
-                        titleStyle={{ fontFamily: 'Avenir' }}
-                    >
-                        <Search />
-                    </TabNavigator.Item>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'contact'}
-                        title='Contact'
-                        onPress={() => this.setState({ selectedTab: 'contact' })}
-                        renderIcon={() => <Image source={contactIcon} style={iconStyle} />}
-                        renderSelectedIcon={() => <Image source={contactIconS} style={iconStyle} />}
-                        selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
-                        titleStyle={{ fontFamily: 'Avenir' }}
-                    >
-                        <Contact />
-                    </TabNavigator.Item>
-                </TabNavigator>
-            </SafeAreaView>
-        );
+        const { isLoaded, types, selectedTab } = this.state;
+        if (!isLoaded) {
+            return (
+                <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 20 }} >Loading...</Text>
+                </SafeAreaView>
+            );
+        } else {
+            return (
+                <SafeAreaView style={{ flex: 1 }}>
+                    <Header onOpen={this.openMenu.bind(this)} />
+                    <TabNavigator>
+                        <TabNavigator.Item
+                            selected={selectedTab === 'home'}
+                            title='Home'
+                            onPress={() => this.setState({ selectedTab: 'home' })}
+                            renderIcon={() => <Image source={homeIcon} style={iconStyle} />}
+                            renderSelectedIcon={() => <Image source={homeIconS} style={iconStyle} />}
+                            selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
+                            titleStyle={{ fontFamily: 'Avenir' }}
+                        >
+                            <Home types={types} />
+                        </TabNavigator.Item>
+                        <TabNavigator.Item
+                            selected={selectedTab === 'cart'}
+                            title='Cart'
+                            onPress={() => this.setState({ selectedTab: 'cart' })}
+                            renderIcon={() => <Image source={cartIcon} style={iconStyle} />}
+                            renderSelectedIcon={() => <Image source={cartIconS} style={iconStyle} />}
+                            badgeText='1'
+                            selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
+                            titleStyle={{ fontFamily: 'Avenir' }}
+                        >
+                            <Cart />
+                        </TabNavigator.Item>
+                        <TabNavigator.Item
+                            selected={selectedTab === 'search'}
+                            title='Search'
+                            onPress={() => this.setState({ selectedTab: 'search' })}
+                            renderIcon={() => <Image source={searchIcon} style={iconStyle} />}
+                            renderSelectedIcon={() => <Image source={searchIconS} style={iconStyle} />}
+                            selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
+                            titleStyle={{ fontFamily: 'Avenir' }}
+                        >
+                            <Search />
+                        </TabNavigator.Item>
+                        <TabNavigator.Item
+                            selected={selectedTab === 'contact'}
+                            title='Contact'
+                            onPress={() => this.setState({ selectedTab: 'contact' })}
+                            renderIcon={() => <Image source={contactIcon} style={iconStyle} />}
+                            renderSelectedIcon={() => <Image source={contactIconS} style={iconStyle} />}
+                            selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
+                            titleStyle={{ fontFamily: 'Avenir' }}
+                        >
+                            <Contact />
+                        </TabNavigator.Item>
+                    </TabNavigator>
+                </SafeAreaView>
+            );
+        }
     }
 }
 

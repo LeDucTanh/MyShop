@@ -6,7 +6,7 @@ import ProductDetail from '../ProductDetail/ProductDetail';
 
 const AppNavigator = createStackNavigator(
     {
-        HomeView,
+        HomeView, 
         ListProduct,
         ProductDetail
     },
@@ -21,6 +21,10 @@ const AppContainer = createAppContainer(AppNavigator);
 
 export default class Home extends Component {
     render() {
-        return <AppContainer />;
+        const { types } = this.props;
+        const screenProps = {
+            types
+        };
+        return <AppContainer screenProps={screenProps} />;
     }
 }

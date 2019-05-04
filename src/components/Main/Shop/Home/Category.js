@@ -6,6 +6,7 @@ import maxiIcon from '../../../../media/temp/maxi.jpg';
 import partyIcon from '../../../../media/temp/party.jpg';
 
 const { width, height } = Dimensions.get('window');
+const url = 'http://localhost/api/images/type/';
 
 export default class Category extends Component {
     gotoListProduct() {
@@ -13,6 +14,7 @@ export default class Category extends Component {
         navigation.navigate('ListProduct');
     }
     render() {
+        const { types } = this.props;
         const { wrapper, textStyle, imageStyle, itemName } = styles;
         return (
             <View style={wrapper}>
@@ -21,18 +23,12 @@ export default class Category extends Component {
                 </View>
                 <View style={{ flex: 4 }}>
                     <Swiper >
-                        <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
-                            <Image source={littleIcon} style={imageStyle} />
-                            <Text style={itemName}>Little Dress</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
-                            <Image source={maxiIcon} style={imageStyle} />
-                            <Text style={itemName}>Maxi Dress</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
-                            <Image source={partyIcon} style={imageStyle} />
-                            <Text style={itemName}>Party Dress</Text>
-                        </TouchableOpacity>
+                        { types.map(e => (
+                            <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
+                                <Image source={{ uri: `${url}${e.image}` }} style={imageStyle} />
+                                <Text style={itemName}>{e.name}</Text>
+                            </TouchableOpacity>
+                        )) }
                     </Swiper>
                 </View>
             </View>
