@@ -34,6 +34,7 @@ class Shop extends Component {
             carts: []
         };
         global.addProductToCart = this.addProductToCart.bind(this);
+        global.increaseQuantity = this.increaseQuantity.bind(this);
     }
 
     componentDidMount() {
@@ -54,6 +55,18 @@ class Shop extends Component {
         this.setState({ carts: this.state.carts.concat({ product, quantity: 1 }) },
             () => saveCart(this.state.carts)
         );
+    }
+
+    increaseQuantity(productId) {
+        const newCarts = this.state.carts.map(e => {
+            if (e.product.id !== productId) return e;
+            return { product: e.product, quantity: e.quantity + 1 };
+        });
+        this.setState({ carts: newCarts });
+    }
+
+    decreaseQuantity() {
+        
     }
 
     openMenu() {

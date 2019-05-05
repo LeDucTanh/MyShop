@@ -4,6 +4,7 @@ import {
     Dimensions, StyleSheet, Image, ListView
 } from 'react-native';
 
+import global from '../../../../components/global';
 
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -12,13 +13,8 @@ function toTitleCase(str) {
 const url = 'http://localhost/api/images/product/';
 
 class CartView extends Component {
-    constructor(props) {
-        super(props);
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        const { carts } = this.props.screenProps;
-        this.state = {
-            dataSource: ds.cloneWithRows(carts)
-        };
+    increaseQuantity(id) {
+        global.increaseQuantity(id);
     }
     gotoDetail() {
         const { navigation } = this.props;
@@ -29,11 +25,12 @@ class CartView extends Component {
             product, mainRight, productController,
             txtName, txtPrice, productImage, numberOfProduct,
             txtShowDetail, showDetailContainer } = styles;
+        const { carts } = this.props.screenProps;
         return (
             <View style={wrapper}>
                 <ListView 
                     contentContainerStyle={main}
-                    dataSource={this.state.dataSource}
+                    dataSource={new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(carts)}
                     renderRow={cart => (
                         <View style={product}>
                             <Image source={{ uri: `${url}${cart.product.images[0]}` }} style={productImage} />
@@ -49,7 +46,7 @@ class CartView extends Component {
                                 </View>
                                 <View style={productController}>
                                     <View style={numberOfProduct}>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.increaseQuantity(cart.product.id)}>
                                             <Text>+</Text>
                                         </TouchableOpacity>
                                         <Text>{cart.quantity}</Text>
