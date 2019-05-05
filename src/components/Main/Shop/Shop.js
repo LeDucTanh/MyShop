@@ -35,6 +35,7 @@ class Shop extends Component {
         global.addProductToCart = this.addProductToCart.bind(this);
         global.increaseQuantity = this.increaseQuantity.bind(this);
         global.decreaseQuantity = this.decreaseQuantity.bind(this);
+        global.removeProduct = this.removeProduct.bind(this);
     }
 
     componentDidMount() {
@@ -73,6 +74,13 @@ class Shop extends Component {
             carts[index].quantity = quantity - 1;
             this.setState({ carts }, () => saveCart(this.state.carts));
         }
+    }
+
+    removeProduct(productId) {
+        const { carts } = this.state;
+        const index = carts.findIndex(e => e.product.id === productId);
+        carts.splice(index, 1);
+        this.setState({ carts }, () => saveCart(this.state.carts));
     }
 
     openMenu() {
