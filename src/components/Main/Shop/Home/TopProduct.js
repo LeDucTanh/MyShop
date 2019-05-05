@@ -40,6 +40,10 @@ export default class TopProduct extends Component {
                             <Text style={productPrice}>{product.price}$</Text>
                         </TouchableOpacity>
                     )}
+                    renderSeparator={(_, row) => {
+                        if (row % 2 === 1) return <View style={{ width, height: 10 }} />;
+                        return null;
+                    }}
                 />
             </View>
         );

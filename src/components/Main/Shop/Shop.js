@@ -8,6 +8,7 @@ import Contact from './Contact/Contact';
 import Cart from './Cart/Cart';
 import Search from './Search/Search';
 import Header from './Header';
+import global from '../../../components/global';
 
 import homeIconS from '../../../media/appIcon/home.png';
 import homeIcon from '../../../media/appIcon/home0.png';
@@ -25,8 +26,10 @@ class Shop extends Component {
             selectedTab: 'home',
             isLoaded: false,
             types: [],
-            products: []
+            products: [],
+            carts: []
         };
+        global.addProductToCart = this.addProductToCart.bind(this);
     }
 
     componentDidMount() {
@@ -43,6 +46,10 @@ class Shop extends Component {
             });
     }
 
+    addProductToCart(product) {
+        this.setState({ carts: this.state.carts.concat({ product, quantity: 1 }) });
+    }
+
     openMenu() {
         const { open } = this.props;
         open();
@@ -50,7 +57,7 @@ class Shop extends Component {
 
     render() {
         const { iconStyle } = styles;
-        const { isLoaded, types, products, selectedTab } = this.state;
+        const { isLoaded, types, products, carts, selectedTab } = this.state;
         if (!isLoaded) {
             return (
                 <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -79,11 +86,11 @@ class Shop extends Component {
                             onPress={() => this.setState({ selectedTab: 'cart' })}
                             renderIcon={() => <Image source={cartIcon} style={iconStyle} />}
                             renderSelectedIcon={() => <Image source={cartIconS} style={iconStyle} />}
-                            badgeText='1'
+                            badgeText={carts.length}
                             selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                             titleStyle={{ fontFamily: 'Avenir' }}
                         >
-                            <Cart />
+                            <Cart carts={carts} />
                         </TabNavigator.Item>
                         <TabNavigator.Item
                             selected={selectedTab === 'search'}

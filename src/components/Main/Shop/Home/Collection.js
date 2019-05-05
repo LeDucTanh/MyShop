@@ -21,7 +21,7 @@ export default class Collection extends Component {
 }
 
 const imageWidth = width - 40;
-const imageHeight = imageWidth / 2;
+const imageHeight = (imageWidth * 720) / 1280;
 
 const styles = StyleSheet.create({
     wrapper: {

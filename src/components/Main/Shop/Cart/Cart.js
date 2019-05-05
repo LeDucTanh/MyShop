@@ -19,6 +19,13 @@ const AppContainer = createAppContainer(AppNavigator);
 
 export default class Cart extends Component {
     render() {
-        return <AppContainer />;
+        const { carts } = this.props;
+        console.log('----------------------');
+        console.log(carts);
+        console.log('----------------------');
+        const screenProps = {
+            carts
+        };
+        return <AppContainer screenProps={screenProps} />;
     }
 }
