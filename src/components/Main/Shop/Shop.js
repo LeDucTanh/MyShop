@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import TabNavigator from 'react-native-tab-navigator';
-import { SafeAreaView } from 'react-navigation';
-import { Text, Image, StyleSheet } from 'react-native';
+import { Text, Image, StyleSheet, View } from 'react-native';
 
 import Home from './Home/Home';
 import Contact from './Contact/Contact';
@@ -86,13 +85,13 @@ class Shop extends Component {
         const { isLoaded, types, products, carts, selectedTab } = this.state;
         if (!isLoaded) {
             return (
-                <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ fontSize: 20 }} >Loading...</Text>
-                </SafeAreaView>
+                </View>
             );
         } else {
             return (
-                <SafeAreaView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
                     <Header onOpen={this.openMenu.bind(this)} />
                     <TabNavigator>
                         <TabNavigator.Item
@@ -141,7 +140,7 @@ class Shop extends Component {
                             <Contact />
                         </TabNavigator.Item>
                     </TabNavigator>
-                </SafeAreaView>
+                </View>
             );
         }
     }

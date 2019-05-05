@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator, SafeAreaView } from 'react-navigation';
 import Authentication from './Authentication/Authentication';
 import ChangeInfo from './ChangeInfo/ChangeInfo';
 import Main from './Main/Main';
@@ -35,6 +35,10 @@ const AppContainer = createAppContainer(AppNavigator);
 export default class App extends Component {
   render() {
     console.disableYellowBox = true;
-    return <AppContainer />;
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <AppContainer />
+      </SafeAreaView>
+    );
   }
 }

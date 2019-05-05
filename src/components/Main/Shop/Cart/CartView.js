@@ -27,7 +27,9 @@ class CartView extends Component {
         const { main, checkoutButton, checkoutTitle, wrapper,
             product, mainRight, productController,
             txtName, txtPrice, productImage, numberOfProduct,
-            txtShowDetail, showDetailContainer } = styles;
+            txtShowDetail, showDetailContainer, quantityText,
+            removeButtonText
+        } = styles;
         const { carts } = this.props.screenProps;
         return (
             <View style={wrapper}>
@@ -41,7 +43,7 @@ class CartView extends Component {
                                 <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                                     <Text style={txtName}>{toTitleCase(cart.product.name)}</Text>
                                     <TouchableOpacity>
-                                        <Text style={{ fontFamily: 'Avenir', color: '#969696' }}>X</Text>
+                                        <Text style={removeButtonText}>X</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View>
@@ -50,11 +52,11 @@ class CartView extends Component {
                                 <View style={productController}>
                                     <View style={numberOfProduct}>
                                         <TouchableOpacity onPress={() => this.increaseQuantity(cart.product.id)}>
-                                            <Text>+</Text>
+                                            <Text style={quantityText}>+</Text>
                                         </TouchableOpacity>
                                         <Text>{cart.quantity}</Text>
                                         <TouchableOpacity onPress={() => this.decreaseQuantity(cart.product.id)}>
-                                            <Text>-</Text>
+                                            <Text style={quantityText}>-</Text>
                                         </TouchableOpacity>
                                     </View>
                                     <TouchableOpacity style={showDetailContainer} onPress={this.gotoDetail.bind(this)}>
@@ -153,6 +155,18 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-end'
+    },
+    quantityText: {
+        width: 20,
+        height: 20,
+        textAlign: 'center'
+    },
+    removeButtonText: {
+        fontFamily: 'Avenir', 
+        color: '#969696',
+        width: 20, 
+        height: 20, 
+        textAlign: 'center'
     }
 });
 
