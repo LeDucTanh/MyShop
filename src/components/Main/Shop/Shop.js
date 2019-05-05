@@ -53,9 +53,15 @@ class Shop extends Component {
     }
 
     addProductToCart(product) {
-        this.setState({ carts: this.state.carts.concat({ product, quantity: 1 }) },
-            () => saveCart(this.state.carts)
-        );
+        const { carts } = this.state;
+        const index = carts.findIndex(e => e.product.id === product.id);
+        if (index === -1) {
+            this.setState({ carts: this.state.carts.concat({ product, quantity: 1 }) },
+                () => saveCart(this.state.carts)
+            );
+        } else {
+            this.increaseQuantity(product.id);
+        }
     }
 
     increaseQuantity(productId) {
