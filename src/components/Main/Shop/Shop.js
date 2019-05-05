@@ -35,6 +35,7 @@ class Shop extends Component {
         };
         global.addProductToCart = this.addProductToCart.bind(this);
         global.increaseQuantity = this.increaseQuantity.bind(this);
+        global.decreaseQuantity = this.decreaseQuantity.bind(this);
     }
 
     componentDidMount() {
@@ -62,11 +63,17 @@ class Shop extends Component {
             if (e.product.id !== productId) return e;
             return { product: e.product, quantity: e.quantity + 1 };
         });
-        this.setState({ carts: newCarts });
+        this.setState({ carts: newCarts }, () => saveCart(this.state.carts));
     }
 
-    decreaseQuantity() {
-        
+    decreaseQuantity(productId) {
+        const { carts } = this.state;
+        const index = carts.findIndex(e => e.product.id === productId);
+        const quantity = carts[index].quantity;
+        if (quantity !== 1) {
+            carts[index].quantity = quantity - 1;
+            this.setState({ carts }, () => saveCart(this.state.carts));
+        }
     }
 
     openMenu() {

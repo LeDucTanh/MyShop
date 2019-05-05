@@ -1,4 +1,5 @@
 module.exports = {
     addProductToCart: null,
-    increaseQuantity: null
+    increaseQuantity: null,
+    decreaseQuantity: null
 };

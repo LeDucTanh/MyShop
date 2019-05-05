@@ -16,6 +16,9 @@ class CartView extends Component {
     increaseQuantity(id) {
         global.increaseQuantity(id);
     }
+    decreaseQuantity(id) {
+        global.decreaseQuantity(id);
+    }
     gotoDetail() {
         const { navigation } = this.props;
         navigation.navigate('ProductDetail');
@@ -50,7 +53,7 @@ class CartView extends Component {
                                             <Text>+</Text>
                                         </TouchableOpacity>
                                         <Text>{cart.quantity}</Text>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.decreaseQuantity(cart.product.id)}>
                                             <Text>-</Text>
                                         </TouchableOpacity>
                                     </View>
