@@ -10,6 +10,10 @@ import Search from './Search/Search';
 import Header from './Header';
 import global from '../../../components/global';
 
+import initData from '../../../api/initData';
+import saveCart from '../../../api/saveCart';
+import getCart from '../../../api/getCart';
+
 import homeIconS from '../../../media/appIcon/home.png';
 import homeIcon from '../../../media/appIcon/home0.png';
 import cartIconS from '../../../media/appIcon/cart.png';
@@ -22,7 +26,7 @@ import contactIcon from '../../../media/appIcon/contact0.png';
 class Shop extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             selectedTab: 'home',
             isLoaded: false,
             types: [],
@@ -33,9 +37,7 @@ class Shop extends Component {
     }
 
     componentDidMount() {
-        // eslint-disable-next-line no-undef
-        fetch('http://localhost/api/')
-            .then(res => res.json())
+        initData()
             .then(resJSON => {
                 const { type, product } = resJSON;
                 this.setState({
@@ -44,10 +46,14 @@ class Shop extends Component {
                     products: product
                 });
             });
+        getCart()
+            .then(carts => this.setState({ carts }));
     }
 
     addProductToCart(product) {
-        this.setState({ carts: this.state.carts.concat({ product, quantity: 1 }) });
+        this.setState({ carts: this.state.carts.concat({ product, quantity: 1 }) },
+            () => saveCart(this.state.carts)
+        );
     }
 
     openMenu() {

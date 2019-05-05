@@ -16,9 +16,6 @@ class CartView extends Component {
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         const { carts } = this.props.screenProps;
-        console.log('-----------');
-        console.log(carts);
-        console.log('-----------');
         this.state = {
             dataSource: ds.cloneWithRows(carts)
         };
