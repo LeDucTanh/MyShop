@@ -22,9 +22,11 @@ class CartView extends Component {
     removeProduct(id) {
         global.removeProduct(id);
     }
-    gotoDetail() {
+    gotoDetail(product) {
         const { navigation } = this.props;
-        navigation.navigate('ProductDetail');
+        navigation.navigate('ProductDetail', {
+            product
+        });
     }
     render() {
         const { main, checkoutButton, checkoutTitle, wrapper,
@@ -62,7 +64,7 @@ class CartView extends Component {
                                             <Text style={quantityText}>-</Text>
                                         </TouchableOpacity>
                                     </View>
-                                    <TouchableOpacity style={showDetailContainer} onPress={this.gotoDetail.bind(this)}>
+                                    <TouchableOpacity style={showDetailContainer} onPress={() => this.gotoDetail(cart.product)}>
                                         <Text style={txtShowDetail}>SHOW DETAILS</Text>
                                     </TouchableOpacity>
                                 </View>
