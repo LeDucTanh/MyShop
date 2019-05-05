@@ -23,7 +23,6 @@ export default class Main extends Component {
                     content={<Menu navigation={navigation} />}
                     tapToClose
                     openDrawerOffset={0.4}
-                    styles={{ backgroundColor: 'black' }}
                 >
                     <Shop open={this.openControlPanel.bind(this)} navigation={navigation} />
                 </Drawer>
