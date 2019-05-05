@@ -19,7 +19,10 @@ export default class Category extends Component {
                     <Text style={textStyle}>LIST OF CATEGORY</Text>
                 </View>
                 <View style={{ flex: 4 }}>
-                    <Swiper >
+                    <Swiper 
+                        autoplay
+                        autoplayTimeout={3}
+                    >
                         { types.map(e => (
                             <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
                                 <Image source={{ uri: `${url}${e.image}` }} style={imageStyle} />
