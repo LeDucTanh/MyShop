@@ -37,7 +37,7 @@ class CartView extends Component {
         } = styles;
         const { carts } = this.props.screenProps;
         const totalArray = carts.map(e => e.product.price * e.quantity);
-        const total = totalArray.reduce((a, b) => a + b);
+        const total = totalArray.length ? totalArray.reduce((a, b) => a + b) : 0;
         return (
             <View style={wrapper}>
                 <ListView 
