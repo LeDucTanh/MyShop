@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-navigation';
 
 import icBack from '../../media/appIcon/back_white.png';
 import icLogo from '../../media/appIcon/ic_logo.png';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 export default class Authentication extends Component {
     constructor(props) {
@@ -36,31 +38,10 @@ export default class Authentication extends Component {
             title, container,
             controlStyle, signInStyle,
             signUpStyle, activeStyle,
-            inactiveStyle, inputStyle,
-            bigBtnStyle, bigBtnTextStyle
+            inactiveStyle
         } = styles;
-        const signInJSX = (
-            <View>
-                <TextInput style={inputStyle} placeholder='Enter your email' />
-                <TextInput style={inputStyle} placeholder='Enter your password' />
-                <TouchableOpacity style={bigBtnStyle}>
-                    <Text style={bigBtnTextStyle} >SIGN IN NOW</Text>
-                </TouchableOpacity>
-            </View>
-        );
-        const signUpJSX = (
-            <View>
-                <TextInput style={inputStyle} placeholder='Enter your name' />
-                <TextInput style={inputStyle} placeholder='Enter your email' />
-                <TextInput style={inputStyle} placeholder='Enter your password' />
-                <TextInput style={inputStyle} placeholder='Re-enter your password' />
-                <TouchableOpacity style={bigBtnStyle}>
-                    <Text style={bigBtnTextStyle} >SIGN UP NOW</Text>
-                </TouchableOpacity>
-            </View>
-        );
         const { isSignIn } = this.state;
-        const mainJSX = isSignIn ? signInJSX : signUpJSX;
+        const mainJSX = isSignIn ? <SignIn /> : <SignUp />;
         return (
             <SafeAreaView style={container}>
                 <View style={row1}>
@@ -132,25 +113,5 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 30,
         borderBottomRightRadius: 30,
         marginLeft: 1
-    },
-    inputStyle: {
-        height: 50,
-        backgroundColor: '#fff',
-        marginBottom: 10,
-        borderRadius: 20,
-        paddingLeft: 30
-    },
-    bigBtnStyle: {
-        height: 50,
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    bigBtnTextStyle: {
-        fontFamily: 'Avenir',
-        fontWeight: '400',
-        color: '#fff'
     }
 });
