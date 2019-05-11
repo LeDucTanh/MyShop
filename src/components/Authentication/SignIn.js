@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import signIn from '../../api/signIn';
 import global from '../global';
+import saveToken from '../../api/saveToken';
 
 export default class SignIn extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ export default class SignIn extends Component {
         .then(res => {
             global.onSignIn(res.user);
             this.props.backToMain();
+            saveToken(res.token);
         })
         .catch(err => console.log(err));
     } 
