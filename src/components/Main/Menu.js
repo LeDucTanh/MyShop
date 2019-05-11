@@ -10,7 +10,7 @@ class Menu extends Component {
         super(props);
         this.state = {
             user: null
-        }; 
+        };
         global.onSignIn = this.onSignIn.bind(this);
     }
 
@@ -36,8 +36,8 @@ class Menu extends Component {
     }
 
     render() {
-        const { container, profile, 
-            buttonStyle, buttonText, 
+        const { container, profile,
+            buttonStyle, buttonText,
             btnSigninStyle, btnTextSignin,
             loginContainer, username
         } = styles;
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#34B089',
-        borderRightWidth: 3, 
+        borderRightWidth: 3,
         borderColor: '#fff',
         alignItems: 'center'
     },

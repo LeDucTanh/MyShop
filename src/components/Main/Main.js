@@ -6,6 +6,7 @@ import Menu from './Menu';
 import Shop from './Shop/Shop';
 import checkLogin from '../../api/checkLogin';
 import getToken from '../../api/getToken';
+import refreshToken from '../../api/refreshToken';
 import global from '../global';
 
 export default class Main extends Component {
@@ -13,7 +14,12 @@ export default class Main extends Component {
         getToken()
         .then(token => checkLogin(token))
         .then(res => global.onSignIn(res.user))
-        .catch(err => console.log('Check login happend error', err));
+        .catch(err => console.log('Checking login happend error', err));
+
+        setInterval(() => {
+            getToken()
+                .then(token => refreshToken(token));
+        }, 60 * 1000);
     }
 
     closeControlPanel = () => {
