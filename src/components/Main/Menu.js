@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import global from '../global';
 
 import profileICon from '../../media/temp/profile.png';
 
@@ -7,8 +8,13 @@ class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLogedIn: false
-        };
+            user: null
+        }; 
+        global.onSignIn = this.onSignIn.bind(this);
+    }
+
+    onSignIn(user) {
+        this.setState({ user });
     }
 
     gotoAuthentication() {
@@ -29,6 +35,7 @@ class Menu extends Component {
             btnSigninStyle, btnTextSignin,
             loginContainer, username
         } = styles;
+        const { user } = this.state;
         const logoutJSX = (
             <View>
                 <TouchableOpacity style={buttonStyle} onPress={this.gotoAuthentication.bind(this)}>
@@ -38,7 +45,7 @@ class Menu extends Component {
         );
         const loginJSX = (
             <View style={loginContainer}>
-                <Text style={username}>Le Duc Tanh</Text>
+                <Text style={username}>{user ? user.name : ''}</Text>
                 <View>
                     <TouchableOpacity style={btnSigninStyle} onPress={this.gotoOrderHistory.bind(this)}>
                         <Text style={btnTextSignin}>Order History</Text>
@@ -53,7 +60,7 @@ class Menu extends Component {
                 <View />
             </View>
         );
-        const mainJSX = this.state.isLogedIn ? loginJSX : logoutJSX;
+        const mainJSX = this.state.user ? loginJSX : logoutJSX;
         return (
             <View style={container}>
                 <Image source={profileICon} style={profile} />

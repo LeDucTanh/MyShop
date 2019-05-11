@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Image, StyleSheet, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 
 import icBack from '../../media/appIcon/back_white.png';
@@ -13,6 +13,10 @@ export default class Authentication extends Component {
         this.state = {
             isSignIn: false
         };
+    }
+
+    gotoSignIn() {
+        this.setState({ isSignIn: true });
     }
 
     signIn() {
@@ -41,7 +45,7 @@ export default class Authentication extends Component {
             inactiveStyle
         } = styles;
         const { isSignIn } = this.state;
-        const mainJSX = isSignIn ? <SignIn /> : <SignUp />;
+        const mainJSX = isSignIn ? <SignIn backToMain={this.backToMain.bind(this)} /> : <SignUp gotoSignIn={this.gotoSignIn.bind(this)} />;
         return (
             <SafeAreaView style={container}>
                 <View style={row1}>

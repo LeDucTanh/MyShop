@@ -18,7 +18,7 @@ export default class SignUp extends Component {
             'Notice',
             'Sign up successfully',
             [
-                { text: 'OK', onPress: () => this.setState({ email: '' }) },
+                { text: 'OK', onPress: this.props.gotoSignIn.bind(this) },
             ],
             { cancelable: false },
         );
@@ -29,7 +29,7 @@ export default class SignUp extends Component {
             'Notice',
             'Your email has been used by others',
             [
-                { text: 'OK', onPress: () => console.log('OK Pressed') },
+                { text: 'OK', onPress: this.removeEmail.bind(this) },
             ],
             { cancelable: false },
         );
@@ -42,6 +42,10 @@ export default class SignUp extends Component {
            if (res === 'THANH_CONG') this.onSuccess();
            else this.onFail();
         });
+    }
+
+    removeEmail() {
+        this.setState({ email: '' });
     }
 
     render() {
