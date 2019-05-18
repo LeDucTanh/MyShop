@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
+import { connect } from 'react-redux';
 
 const { width, height } = Dimensions.get('window');
 const url = 'http://localhost/api/images/type/';
 
-export default class Category extends Component {
+class Category extends Component {
     gotoListProduct() {
         const { navigation } = this.props;
         navigation.navigate('ListProduct');
@@ -71,3 +72,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
     }
 });
+
+function mapStateToProps(state) {
+    return {
+        types: state.types
+    };
+}
+
+export default connect(mapStateToProps)(Category);

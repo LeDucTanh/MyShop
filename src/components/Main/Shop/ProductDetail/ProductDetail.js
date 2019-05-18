@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import {
     View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity
 } from 'react-native';
-
-import global from '../../../../components/global';
+import { connect } from 'react-redux';
+import { addCart } from '../../../../redux/actionCreators';
 
 const back = require('../../../../media/appIcon/back.png');
 const cart = require('../../../../media/appIcon/cartfull.png');
 
 const url = 'http://localhost/api/images/product/';
 
-export default class ProductDetail extends Component {
+class ProductDetail extends Component {
     goBack() {
         const { navigation } = this.props;
         navigation.pop();
     }
     addThisProductToCart() {
         const product = this.props.navigation.getParam('product');
-        global.addProductToCart(product);
+        this.props.addCart(product);
     }
     render() {
         const {
@@ -176,3 +176,5 @@ const styles = StyleSheet.create({
         fontFamily: 'Avenir'
     }
 });
+
+export default connect(null, { addCart })(ProductDetail);

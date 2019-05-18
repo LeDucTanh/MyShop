@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TabNavigator from 'react-native-tab-navigator';
 import { Text, Image, StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../../redux/actionCreators';
 
 import Home from './Home/Home';
 import Contact from './Contact/Contact';
@@ -9,7 +11,6 @@ import Search from './Search/Search';
 import Header from './Header';
 import global from '../../../components/global';
 
-import initData from '../../../api/initData';
 import saveCart from '../../../api/saveCart';
 import getCart from '../../../api/getCart';
 
@@ -26,42 +27,18 @@ class Shop extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'home',
-            isLoaded: false,
-            types: [],
-            products: [],
-            carts: []
+            selectedTab: 'home'
         };
-        global.addProductToCart = this.addProductToCart.bind(this);
+        // global.addProductToCart = this.addProductToCart.bind(this);
         global.increaseQuantity = this.increaseQuantity.bind(this);
         global.decreaseQuantity = this.decreaseQuantity.bind(this);
         global.removeProduct = this.removeProduct.bind(this);
     }
 
     componentDidMount() {
-        initData()
-            .then(resJSON => {
-                const { type, product } = resJSON;
-                this.setState({
-                    isLoaded: true,
-                    types: type,
-                    products: product
-                });
-            });
+        this.props.getDataThunk();
         getCart()
             .then(carts => this.setState({ carts }));
-    }
-
-    addProductToCart(product) {
-        const { carts } = this.state;
-        const index = carts.findIndex(e => e.product.id === product.id);
-        if (index === -1) {
-            this.setState({ carts: this.state.carts.concat({ product, quantity: 1 }) },
-                () => saveCart(this.state.carts)
-            );
-        } else {
-            this.increaseQuantity(product.id);
-        }
     }
 
     increaseQuantity(productId) {
@@ -96,7 +73,8 @@ class Shop extends Component {
 
     render() {
         const { iconStyle } = styles;
-        const { isLoaded, types, products, carts, selectedTab } = this.state;
+        const { selectedTab } = this.state;
+        const { isLoaded, carts } = this.props;
         if (!isLoaded) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -117,7 +95,7 @@ class Shop extends Component {
                             selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                             titleStyle={{ fontFamily: 'Avenir' }}
                         >
-                            <Home types={types} products={products} />
+                            <Home />
                         </TabNavigator.Item>
                         <TabNavigator.Item
                             selected={selectedTab === 'cart'}
@@ -129,7 +107,7 @@ class Shop extends Component {
                             selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                             titleStyle={{ fontFamily: 'Avenir' }}
                         >
-                            <Cart carts={carts} />
+                            <Cart />
                         </TabNavigator.Item>
                         <TabNavigator.Item
                             selected={selectedTab === 'search'}
@@ -164,4 +142,11 @@ const styles = StyleSheet.create({
     iconStyle: { width: 25, height: 25 }
 });
 
-export default Shop;
+function mapStateToProps(state) {
+    return {
+        isLoaded: state.isLoaded,
+        carts: state.carts
+    };
+}
+
+export default connect(mapStateToProps, actionCreators)(Shop);

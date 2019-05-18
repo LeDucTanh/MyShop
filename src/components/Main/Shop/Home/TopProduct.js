@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { 
     View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, ListView 
 } from 'react-native';
+import { connect } from 'react-redux';
 
 const url = 'http://localhost/api/images/product/';
 
-export default class TopProduct extends Component {
+class TopProduct extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -100,3 +101,11 @@ const styles = StyleSheet.create({
         color: '#662F90'
     }
 });
+
+function mapStateToProps(state) {
+    return {
+        products: state.products
+    };
+}
+
+export default connect(mapStateToProps)(TopProduct);

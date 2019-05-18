@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { connect } from 'react-redux';
+
 import global from '../global';
 import saveToken from '../../api/saveToken';
 
@@ -129,4 +131,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Menu;
+function mapStateToProps(state) {
+    return {
+        navigation: state.navigation
+    };
+}
+
+export default connect(mapStateToProps)(Menu);

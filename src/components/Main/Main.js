@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Drawer from 'react-native-drawer';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../redux/actionCreators';
+import { getNavigation } from '../../redux/actionCreators';
 
 import Menu from './Menu';
 import Shop from './Shop/Shop';
@@ -39,15 +39,15 @@ class Main extends Component {
             <View style={{ flex: 1 }}>
                 <Drawer
                     ref={(ref) => { this.drawer = ref; }}
-                    content={<Menu navigation={navigation} />}
+                    content={<Menu />}
                     tapToClose
                     openDrawerOffset={0.4}
                 >
-                    <Shop open={this.openControlPanel.bind(this)} navigation={navigation} />
+                    <Shop open={this.openControlPanel.bind(this)} />
                 </Drawer>
             </View>
         );
     }
 }
 
-export default connect({ actionCreators })(Main);
+export default connect(null, { getNavigation })(Main);

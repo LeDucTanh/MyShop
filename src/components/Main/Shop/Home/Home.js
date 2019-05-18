@@ -21,11 +21,7 @@ const AppContainer = createAppContainer(AppNavigator);
 
 export default class Home extends Component {
     render() {
-        const { types, products } = this.props;
-        const screenProps = {
-            types,
-            products
-        };
-        return <AppContainer screenProps={screenProps} />;
+        return <AppContainer />;
     }
 }
+
