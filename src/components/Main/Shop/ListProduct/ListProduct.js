@@ -16,6 +16,7 @@ export default class ListProduct extends Component {
         const { navigation } = this.props;
         navigation.navigate('ProductDetail');
     }
+
     render() {
         const {
             container, header, wraper, backStyle,
@@ -42,7 +43,7 @@ export default class ListProduct extends Component {
                             <View style={lastRowInfo}>
                                 <Text style={txtColor}>Color RoyalBlue</Text>
                                 <View style={{ backgroundColor: 'cyan', height: 16, width: 16, borderRadius: 8 }} />
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={this.gotoDetail.bind(this)}>
                                     <Text style={txtShowDetail}>SHOW DETAILS</Text>
                                 </TouchableOpacity>
                             </View>

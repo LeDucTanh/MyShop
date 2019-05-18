@@ -14,7 +14,8 @@
     "react-native-iphone-x-helper": "^1.2.0",
     "react-native-swiper": "^1.5.14",
     "react-native-tab-navigator": "^0.3.4",
-    "react-navigation": "^3.9.1"
+    "react-navigation": "^3.9.1",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

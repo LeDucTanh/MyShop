@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Drawer from 'react-native-drawer';
 import { View } from 'react-native';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../redux/actionCreators';
 
 import Menu from './Menu';
 import Shop from './Shop/Shop';
@@ -9,7 +11,7 @@ import getToken from '../../api/getToken';
 import refreshToken from '../../api/refreshToken';
 import global from '../global';
 
-export default class Main extends Component {
+class Main extends Component {
     componentDidMount() {
         getToken()
         .then(token => checkLogin(token))
@@ -32,6 +34,7 @@ export default class Main extends Component {
 
     render() {
         const { navigation } = this.props;
+        this.props.getNavigation(navigation);
         return (
             <View style={{ flex: 1 }}>
                 <Drawer
@@ -46,3 +49,5 @@ export default class Main extends Component {
         );
     }
 }
+
+export default connect({ actionCreators })(Main);
